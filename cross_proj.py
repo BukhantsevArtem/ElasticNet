@@ -22,3 +22,13 @@ param_grid = {'alpha':[0.01,0.09,0.099,0.1,0.15, 0.3,0.5,0.9,0.99,1,10,25,50,100
 from sklearn.model_selection import GridSearchCV
 gr_model = GridSearchCV(El_model, param_grid,cv = 15, scoring='neg_mean_absolute_error', verbose = 5)
 gr_model.fit(X_train, y_train)
+gr_model.best_estimator_
+test = gr_model.cv_results_
+test = pd.DataFrame(test)
+
+y_pred = gr_model.predict(X_test)
+
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+mae_pred = mean_absolute_error(y_test, y_pred)
+mse_pred = np.sqrt(mean_squared_error(y_test, y_pred))
+ 
